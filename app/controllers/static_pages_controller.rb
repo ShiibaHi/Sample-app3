@@ -7,4 +7,8 @@ class StaticPagesController < ApplicationController
   # app/voews/コントロール名/アクション名.html.erb
   def help
   end
+
+  def about
+    # => app/views/statics_pages/about.html.erb
+  end  
 end
