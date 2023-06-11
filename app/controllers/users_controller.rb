@@ -47,6 +47,23 @@
     redirect_to users_url, status: :see_other
   end
 
+  def index
+    # @users = User.where(activated: true).paginate(page: params[:page])
+    if params[:q] && params[:q].reject { |key, value| value.blank? }.present?
+      @q = User.ransack(search_params, activated: true)
+      @title = "Serch Result"
+    else
+      @q = User.ransack(activated: true)
+      @title = "All users"
+    end
+    @users = @q.result.paginate(page: params[:page])
+  end
+
+  private
+    def search_params
+      params.require(:q).permit(:name_cont)
+    end
+  
   private
 
     def user_params
