@@ -90,6 +90,7 @@ class RememberingTest < UsersLogin
     # Cookieを保存してログイン
     log_in_as(@user, remember_me: '1')
     # Cookieが削除されていることを検証してからログイン
+    # pull requestができないため、文字変更のため、追記しました。
     log_in_as(@user, remember_me: '0')
     assert cookies[:remember_token].blank?
   end
