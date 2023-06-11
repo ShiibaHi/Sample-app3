@@ -8,3 +8,10 @@ module SampleApp
     config.active_storage.variant_processor = :mini_magick
   end
 end
+
+module Pictweet
+  class Application < Rails::Application
+    config.load_defaults 6.0
+    config.i18n.default_locale = :ja
+  end
+end

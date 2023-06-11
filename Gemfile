@@ -41,6 +41,7 @@ group :test do
   gem "guard",                    "2.18.0"
   gem "guard-minitest",           "2.4.6"
   gem 'ransack'
+  gem 'rails-i18n'
 end
 
 # Windows ではタイムゾーン情報用の tzinfo-data gem を含める必要があります
