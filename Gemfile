@@ -25,6 +25,7 @@ end
 
 group :development do
   gem "web-console", "4.2.0"
+  gem "solargraph", "0.48.0"
 end
 
 group :test do
