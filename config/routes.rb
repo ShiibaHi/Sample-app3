@@ -13,3 +13,4 @@ Rails.application.routes.draw do
   resources :microposts,          only: [:create, :destroy]
   get '/microposts', to: 'static_pages#home'
 end
+

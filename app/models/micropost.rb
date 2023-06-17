@@ -11,3 +11,8 @@ class Micropost < ApplicationRecord
                       size: { less_than: 5.megabytes,
                               message:   "should be less than 5MB" }
 end
+
+
+
+
+

@@ -1,10 +1,11 @@
- class UsersController < ApplicationController
+class UsersController < ApplicationController
   before_action :logged_in_user, only: [:index, :edit, :update, :destroy]
   before_action :correct_user,   only: [:edit, :update]
   before_action :admin_user,     only: :destroy
-    def index
-      @users = User.paginate(page: params[:page])
-    end
+
+  def index
+    @users = User.paginate(page: params[:page])
+  end
 
   def show
     @user = User.find(params[:id])
@@ -25,7 +26,7 @@
       render 'new', status: :unprocessable_entity
     end
   end
-
+  
   def edit
     @user = User.find(params[:id])
   end
@@ -33,7 +34,6 @@
   def update
     @user = User.find(params[:id])
     if @user.update(user_params)
-      # 更新に成功した場合を扱う
       flash[:success] = "Profile updated"
       redirect_to @user
     else
@@ -47,39 +47,23 @@
     redirect_to users_url, status: :see_other
   end
 
-  def index
-    if params[:q] && params[:q].reject { |key, value| value.blank? }.present?
-      @q = User.ransack(search_params, activated_true: true)
-      @title = "Search Result"
-    else
-      @q = User.ransack(activated_true: true)
-      @title = "All users"
-    end
-    @users = @q.result.paginate(page: params[:page])
-  end
-
-  private
-  def search_params
-    params.require(:q).permit(:name_cont)
-  end
-  
   private
 
-    def user_params
-      params.require(:user).permit(:name, :email, :password,
-                                   :password_confirmation)
-    end
+  def user_params
+    params.require(:user).permit(:name, :email, :password,
+                                 :password_confirmation)
+  end
 
-    # beforeフィルター
+  # beforeフィルター
 
-    # 正しいユーザーかどうかを確認
-    def correct_user
-      @user = User.find(params[:id])
-      redirect_to(root_url, status: :see_other) unless current_user?(@user)
-    end
+  # 正しいユーザーかどうかを確認
+  def correct_user
+    @user = User.find(params[:id])
+    redirect_to(root_url, status: :see_other) unless current_user?(@user)
+  end
 
-    # 管理者かどうかを確認
-    def admin_user
-      redirect_to(root_url, status: :see_other) unless current_user.admin?
-    end
+  # 管理者かどうかを確認
+  def admin_user
+    redirect_to(root_url, status: :see_other) unless current_user.admin?
+  end
 end
